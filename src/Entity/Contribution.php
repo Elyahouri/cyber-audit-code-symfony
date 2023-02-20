@@ -29,6 +29,15 @@ class Contribution
     #[ORM\JoinColumn(nullable: false)]
     private ?Company $company = null;
 
+    #[ORM\Column]
+    private ?int $base = null;
+
+    public function __construct()
+    {
+        $this->createdAt = new \DateTimeImmutable('now',new \DateTimeZone("Europe/Paris"));
+    }
+
+
     public function getId(): ?int
     {
         return $this->id;
@@ -90,6 +99,18 @@ class Contribution
     public function setCompany(?Company $company): self
     {
         $this->company = $company;
+
+        return $this;
+    }
+
+    public function getBase(): ?int
+    {
+        return $this->base;
+    }
+
+    public function setBase(int $base): self
+    {
+        $this->base = $base;
 
         return $this;
     }

@@ -39,9 +39,13 @@ class Company
     #[ORM\OneToMany(mappedBy: 'company', targetEntity: Contribution::class, orphanRemoval: true)]
     private Collection $contributions;
 
+    #[ORM\OneToMany(mappedBy: 'company', targetEntity: AnnualSale::class, cascade: ['persist'], orphanRemoval: true)]
+    private Collection $annualsSales;
+
     public function __construct()
     {
         $this->contributions = new ArrayCollection();
+        $this->annualsSales = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -167,6 +171,36 @@ class Company
             // set the owning side to null (unless already changed)
             if ($contribution->getCompany() === $this) {
                 $contribution->setCompany(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, AnnualSale>
+     */
+    public function getAnnualsSales(): Collection
+    {
+        return $this->annualsSales;
+    }
+
+    public function addAnnualsSale(AnnualSale $annualsSale): self
+    {
+        if (!$this->annualsSales->contains($annualsSale)) {
+            $this->annualsSales->add($annualsSale);
+            $annualsSale->setCompany($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAnnualsSale(AnnualSale $annualsSale): self
+    {
+        if ($this->annualsSales->removeElement($annualsSale)) {
+            // set the owning side to null (unless already changed)
+            if ($annualsSale->getCompany() === $this) {
+                $annualsSale->setCompany(null);
             }
         }
 

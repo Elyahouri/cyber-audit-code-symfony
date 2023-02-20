@@ -2,6 +2,7 @@
 
 namespace App\DataFixtures;
 
+use App\Entity\AnnualSale;
 use App\Entity\Company;
 use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
@@ -77,8 +78,12 @@ class AppFixtures extends Fixture
         $company->setCity($faker->city());
         $company->setPhone($faker->phoneNumber());
 
+
+        $company->addAnnualsSale(new AnnualSale('2022', $faker->randomNumber(5, true)));
+        $company->addAnnualsSale(new AnnualSale('2023', $faker->randomNumber(5, true)));
         return $company;
     }
+
 
 
 }
