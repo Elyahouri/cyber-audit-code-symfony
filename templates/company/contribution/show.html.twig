@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Contribution{% endblock %}
+
+{% block body %}
+    <h1>Contribution</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ contribution.id }}</td>
+            </tr>
+            <tr>
+                <th>CreatedAt</th>
+                <td>{{ contribution.createdAt ? contribution.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Year</th>
+                <td>{{ contribution.year }}</td>
+            </tr>
+            <tr>
+                <th>Amount</th>
+                <td>{{ contribution.amount }}</td>
+            </tr>
+            <tr>
+                <th>Base</th>
+                <td>{{ contribution.base }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_company_contribution_index') }}">back to list</a>
+
+    <a href="{{ path('app_company_contribution_edit', {'id': contribution.id}) }}">edit</a>
+
+    {{ include('company/contribution/_delete_form.html.twig') }}
+{% endblock %}

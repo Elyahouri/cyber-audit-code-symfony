@@ -4,6 +4,7 @@ namespace App\DataFixtures;
 
 use App\Entity\AnnualSale;
 use App\Entity\Company;
+use App\Entity\Contribution;
 use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
@@ -26,6 +27,7 @@ class AppFixtures extends Fixture
     public function load(ObjectManager $manager): void
     {
         $this->loadUsers($manager);
+        $this->loadContributions($manager);
     }
 
     private function loadUsers(ObjectManager $manager)
@@ -84,6 +86,21 @@ class AppFixtures extends Fixture
         return $company;
     }
 
+    private function loadContributions(ObjectManager $manager){
+        $sales = $manager->getRepository(AnnualSale::class)->findAll();
+
+        foreach($sales as $s){
+
+            $contribution = new Contribution();
+            $contribution->setYear($s->getYear());
+            $contribution->setBase($s->getAmount());
+            $contribution->calculate();
+            $contribution->setCompany($s->getCompany());
+
+            $manager->persist($contribution);
+        }
+        $manager->flush();
+    }
 
 
 }

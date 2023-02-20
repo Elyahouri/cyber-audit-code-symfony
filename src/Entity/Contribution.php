@@ -114,4 +114,13 @@ class Contribution
 
         return $this;
     }
+
+    public function calculate(): self
+    {
+        if($this->base > 0){
+            $this->amount = $this->base * 0.17;
+        }
+
+        return $this;
+    }
 }

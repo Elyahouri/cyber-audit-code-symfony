@@ -5,7 +5,15 @@
 {% block body %}
     <div class="row mt-3">
         <div class="col">
+
             <div class="card">
+                <div class="card-body">
+                    <p>Etablisser votre déclaration pour l'année 2023</p>
+                    <a class="btn btn-warning" href="">Déclarer</a>
+                </div>
+            </div>
+
+            <div class="card mt-3">
                 <div class="card-body">
                     <table class="table table-striped">
                         <thead>
@@ -13,9 +21,21 @@
                             <th>Année de contribution</th>
                             <th>Montant</th>
                             <th>Statut</th>
+                            <th></th>
                         </tr>
                         </thead>
-                        <tbody></tbody>
+                        <tbody>
+                        {% for contribution in contributions %}
+                            <tr>
+                                <td>{{ contribution.year }}</td>
+                                <td>{{ contribution.amount }} €</td>
+                                <td>{{ contribution.payment ? 'Payée' : 'En attente' }}</td>
+                                <td>
+                                    <a class="btn btn-primary" href="#">Voir</a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
                     </table>
                 </div>
             </div>
