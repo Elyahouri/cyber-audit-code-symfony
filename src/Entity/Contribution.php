@@ -118,7 +118,7 @@ class Contribution
     public function calculate(): self
     {
         if($this->base > 0){
-            $this->amount = $this->base * 0.17;
+            $this->amount = $this->base * $_ENV['TAX_RATE'];
         }
 
         return $this;

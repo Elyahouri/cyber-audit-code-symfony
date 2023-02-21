@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\PaymentRepository;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: PaymentRepository::class)]
@@ -16,12 +17,25 @@ class Payment
     #[ORM\Column]
     private ?\DateTimeImmutable $createdAt = null;
 
-    #[ORM\OneToOne(mappedBy: 'payment', cascade: ['persist', 'remove'])]
+    #[ORM\OneToOne(mappedBy: 'payment')]
     private ?Contribution $contribution = null;
 
-    #[ORM\ManyToOne(inversedBy: 'payments')]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?Card $card = null;
+    #[ORM\Column(length: 255)]
+    private ?string $cardOwner = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $cardNumbers = null;
+
+    #[ORM\Column(type: Types::DATE_IMMUTABLE)]
+    private ?\DateTimeImmutable $cardExpirationDate = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $cardCode = null;
+
+    public function __construct()
+    {
+        $this->createdAt = new \DateTimeImmutable('now',new \DateTimeZone("Europe/Paris"));
+    }
 
     public function getId(): ?int
     {
@@ -62,14 +76,50 @@ class Payment
         return $this;
     }
 
-    public function getCard(): ?Card
+    public function getCardOwner(): ?string
     {
-        return $this->card;
+        return $this->cardOwner;
     }
 
-    public function setCard(?Card $card): self
+    public function setCardOwner(string $cardOwner): self
     {
-        $this->card = $card;
+        $this->cardOwner = $cardOwner;
+
+        return $this;
+    }
+
+    public function getCardNumbers(): ?string
+    {
+        return $this->cardNumbers;
+    }
+
+    public function setCardNumbers(string $cardNumbers): self
+    {
+        $this->cardNumbers = $cardNumbers;
+
+        return $this;
+    }
+
+    public function getCardExpirationDate(): ?\DateTimeImmutable
+    {
+        return $this->cardExpirationDate;
+    }
+
+    public function setCardExpirationDate(\DateTimeImmutable $cardExpirationDate): self
+    {
+        $this->cardExpirationDate = $cardExpirationDate;
+
+        return $this;
+    }
+
+    public function getCardCode(): ?string
+    {
+        return $this->cardCode;
+    }
+
+    public function setCardCode(string $cardCode): self
+    {
+        $this->cardCode = $cardCode;
 
         return $this;
     }

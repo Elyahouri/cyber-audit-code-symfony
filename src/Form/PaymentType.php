@@ -2,24 +2,27 @@
 
 namespace App\Form;
 
-use App\Entity\Contribution;
+use App\Entity\Payment;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class ContributionType extends AbstractType
+class PaymentType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('base')
+            ->add('cardOwner')
+            ->add('cardNumbers')
+            ->add('cardExpirationDate')
+            ->add('cardCode')
         ;
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => Contribution::class,
+            'data_class' => Payment::class,
         ]);
     }
 }

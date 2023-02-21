@@ -2,7 +2,6 @@
 
 namespace App\DataFixtures;
 
-use App\Entity\AnnualSale;
 use App\Entity\Company;
 use App\Entity\Contribution;
 use App\Entity\User;
@@ -30,13 +29,20 @@ class AppFixtures extends Fixture
         $this->loadContributions($manager);
     }
 
-    private function loadUsers(ObjectManager $manager)
+    private function buildFaker(): Generator
     {
         $faker = Factory::create('fr_FR');
         $faker->addProvider(new FakerAddress($faker));
         $faker->addProvider(new FakerPerson($faker));
         $faker->addProvider(new FakerPhoneNumber($faker));
         $faker->addProvider(new FakerCompany($faker));
+
+        return $faker;
+    }
+
+    private function loadUsers(ObjectManager $manager)
+    {
+        $faker = $this->buildFaker();
 
         $users =
             [
@@ -79,23 +85,20 @@ class AppFixtures extends Fixture
         $company->setZipCode($faker->postcode());
         $company->setCity($faker->city());
         $company->setPhone($faker->phoneNumber());
-
-
-        $company->addAnnualsSale(new AnnualSale('2022', $faker->randomNumber(5, true)));
-        $company->addAnnualsSale(new AnnualSale('2023', $faker->randomNumber(5, true)));
         return $company;
     }
 
     private function loadContributions(ObjectManager $manager){
-        $sales = $manager->getRepository(AnnualSale::class)->findAll();
+        $faker = $this->buildFaker();
+        $companies = $manager->getRepository(Company::class)->findAll();
 
-        foreach($sales as $s){
+        foreach($companies as $c){
 
             $contribution = new Contribution();
-            $contribution->setYear($s->getYear());
-            $contribution->setBase($s->getAmount());
+            $contribution->setYear('2022');
+            $contribution->setBase($faker->randomNumber(5, true));
             $contribution->calculate();
-            $contribution->setCompany($s->getCompany());
+            $contribution->setCompany($c);
 
             $manager->persist($contribution);
         }

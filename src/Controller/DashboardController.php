@@ -22,16 +22,15 @@ class DashboardController extends AbstractController
     {
         $contributions = $contributionRepository->findBy(['company' => $this->getUser()->getCompany()]);
 
-        $needDeclation = count(array_filter($contributions, function ($c) {
+        $alreadyDeclare = count(array_filter($contributions, function ($c) {
                 if ($c->getYear() === "2023") {
                     return $c;
                 }
             })) === 0;
 
-        dump($contributions, $needDeclation);
         return $this->render('company/dashboard.html.twig', [
             'contributions' => $contributions,
-            'needDeclaration' => $needDeclation
+            'isOpenToDeclare' => $alreadyDeclare && $_ENV['OPEN_FOR_DECLARATION']
         ]);
     }
 }

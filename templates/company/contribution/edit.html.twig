@@ -1,13 +1,9 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit Contribution{% endblock %}
+{% block title %}Modifier ma déclaration{% endblock %}
 
 {% block body %}
-    <h1>Edit Contribution</h1>
 
-    {{ include('company/contribution/_form.html.twig', {'button_label': 'Update'}) }}
+    {{ include('company/contribution/_form.html.twig', {'button_label': 'Modifier'}) }}
 
-    <a href="{{ path('app_company_contribution_index') }}">back to list</a>
-
-    {{ include('company/contribution/_delete_form.html.twig') }}
 {% endblock %}
