@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Contribution {{ contribution.year }}{% endblock %}
+{% block title %}{{ parent() }} Contribution {{ contribution.year }}{% endblock %}
 {% block nav %}{% include("company/_nav.html.twig") %}{% endblock %}
 
 {% block body %}

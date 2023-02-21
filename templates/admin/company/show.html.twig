@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Company{% endblock %}
+{% block title %}{{ parent() }} Entreprise {{ company.name }}{% endblock %}
 {% block nav %}{% include("admin/_nav.html.twig") %}{% endblock %}
 
 {% block body %}

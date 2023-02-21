@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Payer ma contribution{% endblock %}
+{% block title %}{{ parent() }} Payer ma contribution {{ contribution.year }}{% endblock %}
 {% block nav %}{% include("company/_nav.html.twig") %}{% endblock %}
 
 

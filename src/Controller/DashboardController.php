@@ -9,7 +9,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class DashboardController extends AbstractController
 {
-    #[Route('/admin/dashboard', name: 'app_admin_dashboard')]
+    #[Route('/backoffice/dashboard', name: 'app_admin_dashboard')]
     public function adminDashboard(): Response
     {
         return $this->render('admin/dashboard.html.twig', [
@@ -17,7 +17,7 @@ class DashboardController extends AbstractController
         ]);
     }
 
-    #[Route('/company/dashboard', name: 'app_company_dashboard')]
+    #[Route('/espace-entreprise/dashboard', name: 'app_company_dashboard')]
     public function companyDashboard(ContributionRepository $contributionRepository): Response
     {
         $contributions = $contributionRepository->findBy(['company' => $this->getUser()->getCompany()]);

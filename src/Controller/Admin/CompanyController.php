@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-#[Route('/admin/company')]
+#[Route('/backoffice/entreprises')]
 class CompanyController extends AbstractController
 {
     #[Route('/', name: 'app_admin_company_index', methods: ['GET'])]
@@ -22,7 +22,7 @@ class CompanyController extends AbstractController
     }
 
 
-    #[Route('/{id}', name: 'app_admin_company_show', methods: ['GET'])]
+    #[Route('/{id}', name: 'app_admin_company_show',requirements: ['id' => '\d+'], methods: ['GET'])]
     public function show(Company $company): Response
     {
         return $this->render('admin/company/show.html.twig', [

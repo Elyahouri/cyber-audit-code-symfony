@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Nouvelle décalaration{% endblock %}
+{% block title %}{{ parent() }} Déclaration contribution {{ contribution.year}} {% endblock %}
 {% block nav %}{% include("company/_nav.html.twig") %}{% endblock %}
 
 {% block body %}
