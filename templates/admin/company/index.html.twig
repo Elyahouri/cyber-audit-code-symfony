@@ -1,45 +1,45 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Company index{% endblock %}
+{% block nav %}{% include("admin/_nav.html.twig") %}{% endblock %}
 
 {% block body %}
-    <h1>Company index</h1>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>Siret</th>
-                <th>Address</th>
-                <th>ZipCode</th>
-                <th>City</th>
-                <th>Phone</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for company in companies %}
-            <tr>
-                <td>{{ company.id }}</td>
-                <td>{{ company.name }}</td>
-                <td>{{ company.siret }}</td>
-                <td>{{ company.address }}</td>
-                <td>{{ company.zipCode }}</td>
-                <td>{{ company.city }}</td>
-                <td>{{ company.phone }}</td>
-                <td>
-                    <a href="{{ path('app_admin_company_show', {'id': company.id}) }}">show</a>
-                    <a href="{{ path('app_admin_company_edit', {'id': company.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="8">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-    <a href="{{ path('app_admin_company_new') }}">Create new</a>
+    <div class="row mt-3">
+        <div class="col">
+            <div class="card">
+                <div class="card-header h5">Liste des entreprises</div>
+                <div class="card-body">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Siret</th>
+                            <th>Raison sociale</th>
+                            <th>Contact</th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for company in companies %}
+                            <tr>
+                                <td>{{ company.id }}</td>
+                                <td>{{ company.siret }}</td>
+                                <td>{{ company.name }}</td>
+                                <td>{{ company.user.email }}</td>
+                                <td>
+                                    <a class="btn btn-primary btn-sm" href="{{ path('app_admin_company_show', {'id': company.id}) }}">Voir</a>
+                                </td>
+                            </tr>
+                        {% else %}
+                            <tr>
+                                <td colspan="8">no records found</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}

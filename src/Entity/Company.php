@@ -25,12 +25,6 @@ class Company
     private ?string $address = null;
 
     #[ORM\Column(length: 255, nullable: true)]
-    private ?string $zipCode = null;
-
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $city = null;
-
-    #[ORM\Column(length: 255, nullable: true)]
     private ?string $phone = null;
 
     #[ORM\OneToOne(mappedBy: 'company', cascade: ['persist', 'remove'])]
@@ -86,30 +80,9 @@ class Company
         return $this;
     }
 
-    public function getZipCode(): ?string
-    {
-        return $this->zipCode;
-    }
-
-    public function setZipCode(?string $zipCode): self
-    {
-        $this->zipCode = $zipCode;
-
-        return $this;
-    }
-
-    public function getCity(): ?string
-    {
-        return $this->city;
-    }
-
-    public function setCity(?string $city): self
-    {
-        $this->city = $city;
-
-        return $this;
-    }
-
+    /**
+     * @return string|null
+     */
     public function getPhone(): ?string
     {
         return $this->phone;

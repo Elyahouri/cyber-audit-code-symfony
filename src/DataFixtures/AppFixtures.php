@@ -82,8 +82,6 @@ class AppFixtures extends Fixture
         $company->setSiret($faker->siret(false));
         $company->setName($faker->company());
         $company->setAddress($faker->address());
-        $company->setZipCode($faker->postcode());
-        $company->setCity($faker->city());
         $company->setPhone($faker->phoneNumber());
         return $company;
     }
