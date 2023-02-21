@@ -1,18 +1,21 @@
 version: "3.8"
 services:
   database:
-    container_name: audit-code-1-database
+    container_name: audit-code-symfony-database
     image: mariadb:10.5.8
     ports:
       - "3306:3306"
     restart: always
     environment:
-      MYSQL_DATABASE: app_db
+      MYSQL_DATABASE: app_pasdebol
       MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
+      #MYSQL_ROOT_PASSWORD: root
+      #MYSQL_USER: app_pasdebol_user
+      #MYSQL_PASSWORD: 5CZAjWL5vcdgFv3v
     volumes:
       - ./var/dbdata:/var/lib/mysql
   phpmyadmin:
-    container_name: audit-code-1-pma
+    container_name: audit-code-symfony-pma
     image: phpmyadmin/phpmyadmin
     ports:
       - "8081:80"
@@ -26,9 +29,5 @@ services:
     restart: always
     links:
       - database
-  mailer:
-    container_name: audit-code-1-mailer
-    image: schickling/mailcatcher
-    ports: [ "1025", "1080" ]
 volumes:
   dbdata:
