@@ -4,7 +4,18 @@
             <div class="card-header h5">Payer ma contribution {{ contribution.year }}</div>
             {{ form_start(form) }}
             <div class="card-body">
-                {{ form_widget(form) }}
+                <div class="row">
+                    <div class="col">
+                        {{ form_row(form.cardOwner) }}
+                        {{ form_row(form.cardNumbers) }}
+                    </div>
+                    <div class="col">
+                        {{ form_row(form.cardType) }}
+                        {{ form_row(form.cardExpirationDate) }}
+                        {{ form_row(form.cardCode) }}
+                    </div>
+                </div>
+
             </div>
             <div class="card-footer d-flex justify-content-center">
                 <div class="hstack gap-3">

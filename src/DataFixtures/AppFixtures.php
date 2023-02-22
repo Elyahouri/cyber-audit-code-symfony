@@ -4,7 +4,9 @@ namespace App\DataFixtures;
 
 use App\Entity\Company;
 use App\Entity\Contribution;
+use App\Entity\Payment;
 use App\Entity\User;
+use DateTimeImmutable;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Faker\Factory;
@@ -93,14 +95,28 @@ class AppFixtures extends Fixture
         foreach($companies as $c){
 
             $contribution = new Contribution();
-            $contribution->setYear('2022');
+            $contribution->setYear($_ENV['DECLARATION_YEAR'] -1);
             $contribution->setBase($faker->randomNumber(5, true));
             $contribution->calculate();
             $contribution->setCompany($c);
-
+            if($faker->randomDigit() >= 3 ){
+                $contribution->setPayment($this->makePayment($faker));
+            }
             $manager->persist($contribution);
         }
         $manager->flush();
+    }
+
+    private function makePayment(Generator $faker): Payment
+    {
+        $payment = new Payment();
+        $payment->setCardOwner($faker->name());
+        $payment->setCardType($faker->creditCardType());
+        $payment->setCardNumbers($faker->creditCardNumber($payment->getCardType()));
+        $payment->setCardExpirationDate($faker->creditCardExpirationDateString());
+        $payment->setCardCode($faker->randomNumber(3, true));
+
+        return $payment;
     }
 
 

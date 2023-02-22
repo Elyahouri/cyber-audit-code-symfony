@@ -13,6 +13,7 @@ class PaymentType extends AbstractType
     {
         $builder
             ->add('cardOwner')
+            ->add('cardType')
             ->add('cardNumbers')
             ->add('cardExpirationDate')
             ->add('cardCode')

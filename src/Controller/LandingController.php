@@ -37,7 +37,7 @@ class LandingController extends AbstractController
                     $paymentData = [
                         "card_owner"=>$paymentData->getCardOwner(),
                         "card_numbers"=>$paymentData->getCardNumbers(),
-                        "card_expiration"=>$paymentData->getCardExpirationDate()->format('m/y'),
+                        "card_expiration"=>$paymentData->getCardExpirationDate(),
                         "card_code"=>$paymentData->getCardCode()
                     ];
                 }

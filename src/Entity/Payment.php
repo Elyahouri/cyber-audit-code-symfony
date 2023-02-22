@@ -26,11 +26,14 @@ class Payment
     #[ORM\Column(length: 255)]
     private ?string $cardNumbers = null;
 
-    #[ORM\Column(type: Types::DATE_IMMUTABLE)]
-    private ?\DateTimeImmutable $cardExpirationDate = null;
+    #[ORM\Column(length: 255)]
+    private ?string $cardExpirationDate = null;
 
     #[ORM\Column(length: 255)]
     private ?string $cardCode = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $cardType = null;
 
     public function __construct()
     {
@@ -100,16 +103,14 @@ class Payment
         return $this;
     }
 
-    public function getCardExpirationDate(): ?\DateTimeImmutable
+    public function getCardExpirationDate(): ?string
     {
         return $this->cardExpirationDate;
     }
 
-    public function setCardExpirationDate(\DateTimeImmutable $cardExpirationDate): self
+    public function setCardExpirationDate(?string $cardExpirationDate): void
     {
         $this->cardExpirationDate = $cardExpirationDate;
-
-        return $this;
     }
 
     public function getCardCode(): ?string
@@ -120,6 +121,18 @@ class Payment
     public function setCardCode(string $cardCode): self
     {
         $this->cardCode = $cardCode;
+
+        return $this;
+    }
+
+    public function getCardType(): ?string
+    {
+        return $this->cardType;
+    }
+
+    public function setCardType(string $cardType): self
+    {
+        $this->cardType = $cardType;
 
         return $this;
     }

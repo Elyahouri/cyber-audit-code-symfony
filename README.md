@@ -36,3 +36,14 @@ Une fois les services disponibles :
 Le code à auditer est disponible sur l'URL : [http://localhost:8000](http://localhost:8000)
 
 L'administrateur à la base de donnée : [http://localhost:8081](http://localhost:8081)
+
+### Comptes utilisateurs
+
+Administrateur
+```shell
+admin@mail.dev / password
+```
+Entreprise
+```shell
+company@mail.dev / password
+```
