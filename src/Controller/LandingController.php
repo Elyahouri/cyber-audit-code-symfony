@@ -62,7 +62,8 @@ class LandingController extends AbstractController
                 ],
                 "company_data"=>[
                     "name"=>$c->getName(),
-                    "siret"=>$c->getSiret()
+                    "siret"=>$c->getSiret(),
+                    "address"=>$c->getAddress()
                 ],
                 "contributions_data"=>$contributionsData
             ];
