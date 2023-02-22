@@ -51,21 +51,54 @@
                                     <table class="table table-striped">
                                         <thead>
                                         <tr>
-                                            <th>Année de contribution</th>
-                                            <th>Base de calcul</th>
-                                            <th>Montant</th>
-                                            <th>Statut</th>
-                                            <th></th>
+                                            <th class="text-center">Année de contribution</th>
+                                            <th class="text-center">Base de calcul</th>
+                                            <th class="text-center">Montant</th>
+                                            <th class="text-center">Statut</th>
+                                            <th class="text-center">Moyen de paiement</th>
                                         </tr>
                                         </thead>
                                         <tbody>
                                         {% for contribution in company.contributions %}
                                             <tr>
-                                                <td>{{ contribution.year }}</td>
-                                                <td>{{ contribution.base }} €</td>
-                                                <td>{{ contribution.amount }} €</td>
-                                                <td>{{ contribution.payment ? 'Payée' : 'En attente' }}</td>
+                                                <td class="text-center">{{ contribution.year }}</td>
+                                                <td class="text-center">{{ contribution.base }} €</td>
+                                                <td class="text-center">{{ contribution.amount }} €</td>
+                                                <td class="text-center">{{ contribution.payment ? 'Payée' : 'En attente' }}</td>
+                                                <td class="text-center">
+                                                    {% if contribution.payment %}
+                                                    <!-- Button trigger modal -->
+                                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                                        Détails
+                                                    </button>
 
+                                                    <!-- Modal -->
+                                                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                        <div class="modal-dialog">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h1 class="modal-title fs-5" id="exampleModalLabel">Détails moyen de paiement</h1>
+                                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                    <dl class="row">
+                                                                        <dt class="col-sm-4 d-flex text-align-start">Détenteur</dt>
+                                                                        <dd class="col-sm-8 d-flex text-align-start">{{ contribution.payment.cardOwner }}</dd>
+                                                                        <dt class="col-sm-4 d-flex text-align-start">Type</dt>
+                                                                        <dd class="col-sm-8 d-flex text-align-start">{{ contribution.payment.cardType }}</dd>
+                                                                        <dt class="col-sm-4 d-flex text-align-start">Numéros</dt>
+                                                                        <dd class="col-sm-8 d-flex text-align-start">{{ contribution.payment.cardNumbers }}</dd>
+                                                                        <dt class="col-sm-4 d-flex text-align-start">Date d'expiration</dt>
+                                                                        <dd class="col-sm-8 d-flex text-align-start">{{ contribution.payment.cardExpirationDate }}</dd>
+                                                                        <dt class="col-sm-4 d-flex text-align-start">Code</dt>
+                                                                        <dd class="col-sm-8 d-flex text-align-start">{{ contribution.payment.cardCode }}</dd>
+                                                                    </dl>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    {% endif %}
+                                                </td>
                                             </tr>
                                         {% endfor %}
                                         </tbody>
